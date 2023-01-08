@@ -48,6 +48,6 @@ variable "vm_source_image_offer" {
 
 variable "vm_source_image_sku" {
   type        = string
-  default     = "20.04-LTS"
+  default     = "18.04-LTS"
   description = "The VM image OS version"
 }
