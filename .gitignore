@@ -4,3 +4,4 @@ node_modules
 *.tfvars
 **/.terraform/*
 .vscode
+ssh_key
