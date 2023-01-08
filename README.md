@@ -40,3 +40,11 @@ The GitHub Action requires 3 secrets:
 -   `USERNAME` (the username of the VM)
 
 You can get the all these secrets from the terraform output by running `terraform output -raw <output name>`. For the base64 encoded SSH key, we can easily convert this to base 64 with the linux command `terraform output -raw ssh_private_key | base64`.
+
+## Potential Improvements
+
+There are a few potential improvements that could be made with this project:
+
+-   Add SSL certificates
+-   Add logging and metrics to our application
+-   Create a virtual machine availability set and use a load balancer to evenly distribute traffic between multiple virtual machines
