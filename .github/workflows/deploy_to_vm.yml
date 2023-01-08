@@ -9,7 +9,7 @@ jobs:
     deploy-files-to-vm:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - name: Copy files with rsync and start server
               run: |
                   ssh-keyscan -H ${{ secrets.HOST }} > known_hosts
@@ -17,6 +17,11 @@ jobs:
                   echo SSH key file created with correct permissions!
                   rsync -avz -e "ssh -o GlobalKnownHostsFile=known_hosts -i ssh_key" ./src package.json ${{ secrets.USERNAME }}@${{ secrets.HOST }}:~/srv/
                   echo Files copied to host!
-                  ssh -o GlobalKnownHostsFile=known_hosts -i ssh_key ${{ secrets.USERNAME }}@${{ secrets.HOST }} -t 'cd ./srv && pm2 stop express_web_server 2> /dev/null && npm install && npm start'
+                  ssh -o GlobalKnownHostsFile=known_hosts -i ssh_key ${{ secrets.USERNAME }}@${{ secrets.HOST }} /bin/bash <<'EOT'
+                  cd ./srv
+                  pm2 stop express_web_server 2> /dev/null
+                  npm install
+                  npm start
+                  EOT
                   echo Application started!
               shell: bash
