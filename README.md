@@ -30,3 +30,13 @@ Next, using the file created in the previous step, we can connect to our VM with
 ```sh
 ssh -i ssh_key $(terraform output -raw vm_username)@$(terraform output -raw vm_ip_address)
 ```
+
+### Setting up the GitHub Action
+
+The GitHub Action requires 3 secrets:
+
+-   `HOST` (the IP address of the VM)
+-   `SSH_KEY_BASE64` (the ssh private key generated from Terraform as a base 64 string)
+-   `USERNAME` (the username of the VM)
+
+You can get the all these secrets from the terraform output by running `terraform output -raw <output name>`. For the base64 encoded SSH key, we can easily convert this to base 64 with the linux command `terraform output -raw ssh_private_key | base64`.
